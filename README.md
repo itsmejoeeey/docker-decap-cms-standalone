@@ -41,8 +41,8 @@ Additionally:
 
 1. Visit Github and go to `Settings > Developer settings > OAuth Apps`
 2. Create a 'New OAuth App' with:
-    `Homepage URL` = your `{ORIGIN}` above (i.e. `https://example.com`)
-    `Authorization callback URL` = `{ORIGIN}/callback` (i.e. `https://example.com/callback`)
+    `Homepage URL` = your `{ORIGIN}` above (i.e. `https://cms.example.com`)
+    `Authorization callback URL` = `{ORIGIN}/callback` (i.e. `https://cms.example.com/callback`)
 
 
 ### To get starting using Gitlab.com
