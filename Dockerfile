@@ -24,6 +24,11 @@ RUN npm pack netlify-cms@${NETLIFY_CMS_VER} && \
 RUN git clone https://github.com/vencax/netlify-cms-github-oauth-provider.git /builder/netlify-cms-github-oauth-provider && \
     cd /builder/netlify-cms-github-oauth-provider && \
     git reset --hard ${NETLIFY_CMS_AUTH_HASH}
+# Temporary fix - apply all custom patches to `netlify-cms-github-oauth-provider`
+COPY app/netlify-cms-github-oauth-provider/*.patch /builder/netlify-cms-github-oauth-provider/
+RUN cd /builder/netlify-cms-github-oauth-provider && \
+    git apply *.patch && \
+    rm *.patch
 
 
 
@@ -45,13 +50,8 @@ ENV SCOPES=
 ENV OAUTH_AUTHORIZE_PATH=
 ENV OAUTH_TOKEN_PATH=
 
-# Install and configure supervisord
-RUN apk add --update supervisor && rm  -rf /tmp/* /var/cache/apk/*
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Create app directory
 WORKDIR /app
-
 # Bundle app source
 COPY app .
 
@@ -63,5 +63,7 @@ COPY --from=prebuild /builder/netlify-cms-github-oauth-provider ./netlify-cms-gi
 RUN cd /app/netlify-cms && yarn install --production=true
 RUN cd /app/netlify-cms-github-oauth-provider && yarn install --production=true
 
+WORKDIR /app/netlify-cms
+ENV NODE_ENV production
 EXPOSE 80
-ENTRYPOINT ["/usr/bin/supervisord", "--configuration", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["node", "./app.js" ]

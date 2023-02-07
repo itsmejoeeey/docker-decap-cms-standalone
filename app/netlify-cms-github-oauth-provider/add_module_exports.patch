@@ -1,0 +1,10 @@
+diff --git a/app.js b/app.js
+index f045833..dd0e059 100644
+--- a/app.js
++++ b/app.js
+@@ -18,3 +18,5 @@ app.get('/', middleWarez.index)
+ app.listen(port, () => {
+   console.log("gandalf is walkin' on port " + port)
+ })
++
++module.exports = app;
