@@ -32,7 +32,7 @@ jobs:
         # Using 'Semver' format: https://github.com/docker/metadata-action#semver
         with:
           images: |
-            itsmejoeeey/docker-netlify-cms-standalone
+            itsmejoeeey/docker-decap-cms-standalone
           tags: |
             type=ref,event=branch
             type=ref,event=pr

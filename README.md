@@ -14,7 +14,7 @@ Includes [Decap CMS](https://github.com/decaporg/decap-cms) + [an external authe
 _Why use Decap CMS?_
 Decap CMS is a headless CMS that presents a clean UI for editing content (e.g. markdown files) stored in a Git repository. Easy to configure with a YAML config file - a simple and flexible way to add content to any site built with a static site generator.
 
-[View on Docker Hub 🐳](https://hub.docker.com/r/itsmejoeeey/docker-netlify-cms-standalone)
+[View on Docker Hub 🐳](https://hub.docker.com/r/itsmejoeeey/docker-decap-cms-standalone)
 
 ---
 
@@ -33,7 +33,7 @@ docker run -d \
   -v ./my-local-conf.yml:/app/config.yml:ro \
   --name decap-cms \
   --restart=always \
-  itsmejoeeey/docker-netlify-cms-standalone:latest
+  itsmejoeeey/docker-decap-cms-standalone:latest
 ```
 
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
@@ -68,7 +68,7 @@ docker run -d \
   -v ./my-local-conf.yml:/app/config.yml:ro \
   --name decap-cms \
   --restart=always \
-  itsmejoeeey/docker-netlify-cms-standalone:latest
+  itsmejoeeey/docker-decap-cms-standalone:latest
 ```
 
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
