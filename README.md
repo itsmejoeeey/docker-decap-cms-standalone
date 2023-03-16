@@ -1,11 +1,18 @@
-# docker-netlify-cms-standalone
+# docker-decap-cms-standalone
 
-**Easy-to-use Docker image to self-host Netlify CMS (without using Netlify).**
+> **Note**
+> Formerly `docker-netlify-cms-standalone`. In early 2023 Netlify CMS was rebranded to Decap CMS under new ownership ([see post](https://www.netlify.com/blog/netlify-cms-to-become-decap-cms/)).
 
-Includes [Netlify CMS](https://github.com/netlify/netlify-cms) + [an external authentication provider](https://github.com/vencax/netlify-cms-github-oauth-provider) to allow auth with Github/Gitlab.
+<br />
 
-_Why use Netlify CMS?_
-Netlify CMS is a headless CMS that presents a clean UI for editing content (e.g. markdown files) stored in a Git repository. Easy to configure with a YAML config file - a simple and flexible way to add content to any site built with a static site generator.
+
+**Easy-to-use Docker image to self-host Decap CMS (without using Netlify).**
+
+
+Includes [Decap CMS](https://github.com/decaporg/decap-cms) + [an external authentication provider](https://github.com/vencax/netlify-cms-github-oauth-provider) to allow auth with Github/Gitlab.
+
+_Why use Decap CMS?_
+Decap CMS is a headless CMS that presents a clean UI for editing content (e.g. markdown files) stored in a Git repository. Easy to configure with a YAML config file - a simple and flexible way to add content to any site built with a static site generator.
 
 [View on Docker Hub 🐳](https://hub.docker.com/r/itsmejoeeey/docker-netlify-cms-standalone)
 
@@ -24,7 +31,7 @@ docker run -d \
   -e OAUTH_CLIENT_ID='<your_github_client_id>' \
   -e OAUTH_CLIENT_SECRET='<your_github_client_secret>' \
   -v ./my-local-conf.yml:/app/config.yml:ro \
-  --name netlify-cms \
+  --name decap-cms \
   --restart=always \
   itsmejoeeey/docker-netlify-cms-standalone:latest
 ```
@@ -32,7 +39,7 @@ docker run -d \
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
 
 Environment variables:
-* `ORIGIN`: the root url Netlify CMS will be accessible from (i.e. `https://cms.example.com`). Can contain regex (e.g. `.*.example.com`).
+* `ORIGIN`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain regex (e.g. `.*.example.com`).
 * `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`: need to provide from Github (see below).
 Additionally:
 * `GIT_HOSTNAME`: for enterprise Github installations.
@@ -59,7 +66,7 @@ docker run -d \
   -e OAUTH_AUTHORIZE_PATH='/oauth/authorize' \
   -e OAUTH_TOKEN_PATH='/oauth/token' \
   -v ./my-local-conf.yml:/app/config.yml:ro \
-  --name netlify-cms \
+  --name decap-cms \
   --restart=always \
   itsmejoeeey/docker-netlify-cms-standalone:latest
 ```
@@ -67,7 +74,7 @@ docker run -d \
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
 
 Environment variables:
-* `ORIGIN`: the root url Netlify CMS will be accessible from (i.e. `https://cms.example.com`). Can contain regex (e.g. `.*.example.com`).
+* `ORIGIN`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain regex (e.g. `.*.example.com`).
 * `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`: need to provide from Gitlab ([see further instruction here](https://docs.gitlab.com/ee/integration/oauth_provider.html)).
 * `OAUTH_PROVIDER`, `SCOPES`, `OAUTH_AUTHORIZE_PATH`, `OAUTH_TOKEN_PATH`: don't need to be changed.
 Additionally:
@@ -78,7 +85,7 @@ TODO: Elaborate more. [See here for more information.](https://github.com/vencax
 
 ### Supplying a valid `config.yml` file
 
-[See the example file stored in the repo here.](https://github.com/itsmejoeeey/docker-netlify-cms-standalone/blob/master/app/config.yml)
+[See the example file stored in the repo here.](https://github.com/itsmejoeeey/docker-decap-cms-standalone/blob/master/app/config.yml)
 
 - Make sure to update `name`, `repo`, and `branch` to match your backend provider.
     i.e.:
