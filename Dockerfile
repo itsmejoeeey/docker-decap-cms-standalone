@@ -4,7 +4,7 @@
 FROM node:18-alpine AS prebuild
 
 # Package versions
-ARG NETLIFY_CMS_VER=2.10.192
+ARG STATICJS_CMS_VER=1.2.14
 ARG NETLIFY_CMS_AUTH_HASH=bad35f2972691acdfb6397377aa656afc4f0b148
 
 # Install git
@@ -13,12 +13,12 @@ RUN apk add --update git && rm  -rf /tmp/* /var/cache/apk/*
 # Create builder directory
 WORKDIR /builder
 
-# Download `netlify-cms` from NPM
+# Download `staticcms` from NPM
 # > We do this so we can pull only the `dist` files into the `main` stage.
-#   Many unneeded dependencies are included if we install this NPM package in `/app/netlify-cms`
-RUN npm pack netlify-cms@${NETLIFY_CMS_VER} && \
-    mkdir -p /builder/netlify-cms && \
-    tar -xzvf netlify-cms-${NETLIFY_CMS_VER}.tgz -C netlify-cms
+#   Many unneeded dependencies are included if we install this NPM package in `/app/staticcms`
+RUN npm pack @staticcms/app@${STATICJS_CMS_VER} && \
+    mkdir -p /builder/staticcms && \
+    tar -xzvf staticcms-app-${STATICJS_CMS_VER}.tgz -C staticcms
 
 # Clone `netlify-cms-github-oauth-provider`
 RUN git clone https://github.com/vencax/netlify-cms-github-oauth-provider.git /builder/netlify-cms-github-oauth-provider && \
@@ -56,14 +56,14 @@ WORKDIR /app
 COPY app .
 
 # Bundle prebuild files
-COPY --from=prebuild /builder/netlify-cms/package/dist ./netlify-cms/dist
+COPY --from=prebuild /builder/staticcms/package/dist ./staticcms/dist
 COPY --from=prebuild /builder/netlify-cms-github-oauth-provider ./netlify-cms-github-oauth-provider
 
 # Install production packages
-RUN cd /app/netlify-cms && yarn install --production=true
+RUN cd /app/staticcms && yarn install --production=true
 RUN cd /app/netlify-cms-github-oauth-provider && yarn install --production=true
 
-WORKDIR /app/netlify-cms
+WORKDIR /app/staticcms
 ENV NODE_ENV production
 EXPOSE 80
 ENTRYPOINT ["node", "./app.js" ]
