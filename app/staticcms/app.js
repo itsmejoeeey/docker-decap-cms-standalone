@@ -1,27 +1,15 @@
-const express = require('express')
-const path = require("path");
-const url = require('url');
+const express = require('express');
+const path = require('path');
 
-const port = 80
+const port = 80;
 
-const app = express()
+const app = express();
 
 // Serve all files in 'public' folder
 app.use(express.static('public'))
 
-app.get('/netlify-cms.js', (req, res) => {
-    res.sendFile(
-        './dist/netlify-cms.js',
-        { root: __dirname }
-    );
-});
-
-app.get('/netlify-cms.js.map', (req, res) => {
-    res.sendFile(
-        './dist/netlify-cms.js.map',
-        { root: __dirname }
-    );
-});
+// Serve CMS source files
+app.use('/cms', express.static('./app/dist'))
 
 app.get('/config.yml', (req, res) => {
     res.sendFile(
@@ -42,5 +30,5 @@ app.use('/callback', function(req, res, next) {
 });
 
 app.listen(port, () => {
-  console.log(`Netlify CMS listening on port ${port}`)
+  console.log(`Static CMS listening on port ${port}`)
 })

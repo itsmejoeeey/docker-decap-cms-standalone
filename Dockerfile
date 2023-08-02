@@ -56,7 +56,8 @@ WORKDIR /app
 COPY app .
 
 # Bundle prebuild files
-COPY --from=prebuild /builder/staticcms/package/dist ./staticcms/dist
+RUN mkdir /app/staticcms/app
+COPY --from=prebuild /builder/staticcms/package/dist ./staticcms/app/dist
 COPY --from=prebuild /builder/netlify-cms-github-oauth-provider ./netlify-cms-github-oauth-provider
 
 # Install production packages
