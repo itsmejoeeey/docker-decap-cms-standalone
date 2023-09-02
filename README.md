@@ -7,7 +7,6 @@
 
 **Easy-to-use Docker image to self-host Static CMS (without using Netlify).**
 
-
 Includes [Static CMS](https://github.com/StaticJsCMS/static-cms) + [an external authentication provider](https://github.com/vencax/netlify-cms-github-oauth-provider) to allow auth with Github/Gitlab.
 
 ---
@@ -21,7 +20,7 @@ You will need Docker installed on your system
 ```
 docker run -d \
   -p 80:80 \
-  -e ORIGIN='<your root url>' \
+  -e ORIGINS='<your root url>' \
   -e OAUTH_CLIENT_ID='<your_github_client_id>' \
   -e OAUTH_CLIENT_SECRET='<your_github_client_secret>' \
   -v ./my-local-conf.yml:/app/config.yml:ro \
@@ -30,10 +29,10 @@ docker run -d \
   giantswarm/static-cms-standalone:latest
 ```
 
-See ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
+See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
 
 Environment variables:
-* `ORIGIN`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain regex (e.g. `.*.example.com`).
+* `ORIGINS`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain more than one (comma-separated). Can contain regex (e.g. `.*.example.com`).
 * `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`: need to provide from Github (see below).
 Additionally:
 * `GIT_HOSTNAME`: for enterprise Github installations.
@@ -42,8 +41,8 @@ Additionally:
 
 1. Visit Github and go to `Settings > Developer settings > OAuth Apps`
 2. Create a 'New OAuth App' with:
-    `Homepage URL` = your `{ORIGIN}` above (i.e. `https://cms.example.com`)
-    `Authorization callback URL` = `{ORIGIN}/callback` (i.e. `https://cms.example.com/callback`)
+    `Homepage URL` = your origin(s) above (i.e. `https://cms.example.com`)
+    `Authorization callback URL` = `{origin}/callback` (i.e. `https://cms.example.com/callback`)
 
 
 ### To get starting using Gitlab.com
@@ -51,7 +50,7 @@ Additionally:
 ```
 docker run -d \
   -p 80:80 \
-  -e ORIGIN='<your root url>' \
+  -e ORIGINS='<your root url>' \
   -e OAUTH_CLIENT_ID='<your_gitlab_client_id>' \
   -e OAUTH_CLIENT_SECRET='<your_gitlab_client_secret>' \
   -e GIT_HOSTNAME='https://gitlab.com' \
@@ -68,7 +67,7 @@ docker run -d \
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
 
 Environment variables:
-* `ORIGIN`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain regex (e.g. `.*.example.com`).
+* `ORIGINS`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain more than one (comma-separated). Can contain regex (e.g. `.*.example.com`).
 * `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`: need to provide from Gitlab ([see further instruction here](https://docs.gitlab.com/ee/integration/oauth_provider.html)).
 * `OAUTH_PROVIDER`, `SCOPES`, `OAUTH_AUTHORIZE_PATH`, `OAUTH_TOKEN_PATH`: don't need to be changed.
 Additionally:
@@ -82,4 +81,11 @@ To run your own static-cms build, either start the image with the following moun
 ${PWD}/../static-cms/packages/app:/app/staticcms/app
 ```
 
-or copy the relevant files in the `Dockerfile`.
+or supply `STATICJS_CMS_CLONE_URL` (URL to clone static-cms from) and `STATICJS_CMS_CLONE_TAG` (tag to check out) build args.
+
+- Make sure to update `base_url` to match the origin(s) you passed initially.
+    i.e.:
+    ```
+        base_url: https://cms.example.com
+    ```
+

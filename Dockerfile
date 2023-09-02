@@ -5,7 +5,7 @@ FROM node:18-alpine AS prebuild
 
 # Package versions
 ARG STATICJS_CMS_VER=1.2.14
-ARG NETLIFY_CMS_AUTH_HASH=bad35f2972691acdfb6397377aa656afc4f0b148
+ARG NETLIFY_CMS_AUTH_HASH=1155d1964d9a1f8d0d916dc0836c127526d24c49
 ARG STATICJS_CMS_CLONE_URL
 ENV STATICJS_CMS_CLONE_URL ${STATICJS_CMS_CLONE_URL}
 ARG STATICJS_CMS_CLONE_TAG
@@ -54,7 +54,7 @@ LABEL org.opencontainers.image.description="Run static-cms with GitHub OAuth pro
 
 # Environment vars
 ENV LOGLEVEL=info
-ENV ORIGIN=http://localhost
+ENV ORIGINS=http://localhost
 #
 ENV GIT_HOSTNAME=
 ENV OAUTH_CLIENT_ID=
