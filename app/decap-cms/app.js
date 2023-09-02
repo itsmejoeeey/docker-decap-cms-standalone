@@ -9,16 +9,16 @@ const app = express()
 // Serve all files in 'public' folder
 app.use(express.static('public'))
 
-app.get('/netlify-cms.js', (req, res) => {
+app.get('/decap-cms.js', (req, res) => {
     res.sendFile(
-        './dist/netlify-cms.js',
+        './dist/decap-cms.js',
         { root: __dirname }
     );
 });
 
-app.get('/netlify-cms.js.map', (req, res) => {
+app.get('/decap-cms.js.map', (req, res) => {
     res.sendFile(
-        './dist/netlify-cms.js.map',
+        './dist/decap-cms.js.map',
         { root: __dirname }
     );
 });
@@ -42,5 +42,5 @@ app.use('/callback', function(req, res, next) {
 });
 
 app.listen(port, () => {
-  console.log(`Netlify CMS listening on port ${port}`)
+  console.log(`Decap CMS listening on port ${port}`)
 })

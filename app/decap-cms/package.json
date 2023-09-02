@@ -1,6 +1,6 @@
 {
-  "name": "netlify-cms",
-  "description": "Netlify CMS.",
+  "name": "decap-cms",
+  "description": "Decap CMS.",
   "version": "1.0.0",
   "author": "Joey Miller",
   "private": true,
