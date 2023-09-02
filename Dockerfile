@@ -5,7 +5,7 @@ FROM node:18-alpine AS prebuild
 
 # Package versions
 ARG NETLIFY_CMS_VER=2.10.192
-ARG NETLIFY_CMS_AUTH_HASH=bad35f2972691acdfb6397377aa656afc4f0b148
+ARG NETLIFY_CMS_AUTH_HASH=1155d1964d9a1f8d0d916dc0836c127526d24c49
 
 # Install git
 RUN apk add --update git && rm  -rf /tmp/* /var/cache/apk/*
@@ -39,7 +39,7 @@ FROM node:18-alpine AS main
 
 # Environment vars
 ENV LOGLEVEL=info
-ENV ORIGIN=http://localhost
+ENV ORIGINS=http://localhost
 #
 ENV GIT_HOSTNAME=
 ENV OAUTH_CLIENT_ID=
