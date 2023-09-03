@@ -39,7 +39,7 @@ docker run -d \
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
 
 Environment variables:
-* `ORIGINS`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain more than one (comma-separated). Can contain regex (e.g. `.*.example.com`).
+* `ORIGINS`: the root url Decap CMS will be accessible from (i.e. `cms.example.com`). Can contain more than one (comma-separated). Can contain regex (e.g. `.*.example.com`).
 * `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`: need to provide from Github (see below).
 Additionally:
 * `GIT_HOSTNAME`: for enterprise Github installations.
@@ -48,7 +48,7 @@ Additionally:
 
 1. Visit Github and go to `Settings > Developer settings > OAuth Apps`
 2. Create a 'New OAuth App' with:
-    `Homepage URL` = your origin(s) above (i.e. `https://cms.example.com`)
+    `Homepage URL` = your application homepage (i.e. `https://example.com`)
     `Authorization callback URL` = `{origin}/callback` (i.e. `https://cms.example.com/callback`)
 
 
@@ -74,7 +74,7 @@ docker run -d \
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
 
 Environment variables:
-* `ORIGINS`: the root url Decap CMS will be accessible from (i.e. `https://cms.example.com`). Can contain more than one (comma-separated). Can contain regex (e.g. `.*.example.com`).
+* `ORIGINS`: the root url Decap CMS will be accessible from (i.e. `cms.example.com`). Can contain more than one (comma-separated). Can contain regex (e.g. `.*.example.com`).
 * `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`: need to provide from Gitlab ([see further instruction here](https://docs.gitlab.com/ee/integration/oauth_provider.html)).
 * `OAUTH_PROVIDER`, `SCOPES`, `OAUTH_AUTHORIZE_PATH`, `OAUTH_TOKEN_PATH`: don't need to be changed.
 Additionally:
