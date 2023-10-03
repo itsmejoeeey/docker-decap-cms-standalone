@@ -36,6 +36,8 @@ RUN cd /builder/netlify-cms-github-oauth-provider && \
 # Main stage
 #
 FROM node:18-alpine AS main
+LABEL org.opencontainers.image.source=https://github.com/giantswarm/staticjscms-standalone
+LABEL org.opencontainers.image.description="Run static-cms with GitHub OAuth provider"
 
 # Environment vars
 ENV LOGLEVEL=info

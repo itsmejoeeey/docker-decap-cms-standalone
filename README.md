@@ -33,7 +33,7 @@ docker run -d \
   -v ./my-local-conf.yml:/app/config.yml:ro \
   --name decap-cms \
   --restart=always \
-  itsmejoeeey/docker-decap-cms-standalone:latest
+  giantswarm/static-cms-standalone:latest
 ```
 
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
@@ -68,7 +68,7 @@ docker run -d \
   -v ./my-local-conf.yml:/app/config.yml:ro \
   --name decap-cms \
   --restart=always \
-  itsmejoeeey/docker-decap-cms-standalone:latest
+  giantswarm/static-cms-standalone:latest
 ```
 
 See also: ["Supplying a valid `config.yml` file"](#supplying-a-valid-configyml-file)
