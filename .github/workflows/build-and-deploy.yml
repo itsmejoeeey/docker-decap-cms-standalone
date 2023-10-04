@@ -20,6 +20,9 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ matrix.platforms }}
+          build-args: |
+            STATICJS_CMS_CLONE_URL=${{ env.STATICJS_CMS_CLONE_URL }}
+            STATICJS_CMS_CLONE_TAG=${{ env.STATICJS_CMS_CLONE_TAG }}
           tags: giantswarm/staticjscms-hugo-standalone:${{ release.tag_name }}
           push: true
           outputs: type=image,name=giantswarm/staticjscms-hugo-standalone:${{ release.tag_name }}
