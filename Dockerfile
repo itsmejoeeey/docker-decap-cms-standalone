@@ -6,6 +6,10 @@ FROM node:18-alpine AS prebuild
 # Package versions
 ARG STATICJS_CMS_VER=1.2.14
 ARG NETLIFY_CMS_AUTH_HASH=bad35f2972691acdfb6397377aa656afc4f0b148
+ARG STATICJS_CMS_CLONE_URL
+ENV STATICJS_CMS_CLONE_URL ${STATICJS_CMS_CLONE_URL}
+ARG STATICJS_CMS_CLONE_TAG
+ENV STATICJS_CMS_CLONE_TAG ${STATICJS_CMS_CLONE_TAG}
 
 # Install git
 RUN apk add --update git && rm  -rf /tmp/* /var/cache/apk/*
@@ -13,12 +17,21 @@ RUN apk add --update git && rm  -rf /tmp/* /var/cache/apk/*
 # Create builder directory
 WORKDIR /builder
 
-# Download `staticcms` from NPM
-# > We do this so we can pull only the `dist` files into the `main` stage.
-#   Many unneeded dependencies are included if we install this NPM package in `/app/staticcms`
-RUN npm pack @staticcms/app@${STATICJS_CMS_VER} && \
+# If STATICJS_CMS_CLONE_URL is set, clone the repo and build the app
+# otherwise, download the app from NPM
+RUN if [ -n "${STATICJS_CMS_CLONE_URL}" -a -n "${STATICJS_CMS_CLONE_TAG}" ]; then \
+    git config --global advice.detachedHead false && \
+    git clone --depth 1 --quiet --branch "${STATICJS_CMS_CLONE_TAG}" "${STATICJS_CMS_CLONE_URL}" /builder/staticcms && \
+    cd /builder/staticcms && \
+    yarn install && \
+    yarn run lerna run build --scope @staticcms/app && \
+    mkdir -p /builder/staticcms/package && \
+    mv /builder/staticcms/packages/app/dist /builder/staticcms/package/.; \
+    else \
+    npm pack @staticcms/app@${STATICJS_CMS_VER} && \
     mkdir -p /builder/staticcms && \
-    tar -xzvf staticcms-app-${STATICJS_CMS_VER}.tgz -C staticcms
+    tar -xzvf staticcms-app-${STATICJS_CMS_VER}.tgz -C staticcms; \
+    fi
 
 # Clone `netlify-cms-github-oauth-provider`
 RUN git clone https://github.com/vencax/netlify-cms-github-oauth-provider.git /builder/netlify-cms-github-oauth-provider && \
@@ -36,8 +49,8 @@ RUN cd /builder/netlify-cms-github-oauth-provider && \
 # Main stage
 #
 FROM node:18-alpine AS main
-LABEL org.opencontainers.image.source=https://github.com/giantswarm/staticjscms-standalone
-LABEL org.opencontainers.image.description="Run static-cms with GitHub OAuth provider"
+LABEL org.opencontainers.image.source=https://github.com/giantswarm/staticjscms-hugo-standalone
+LABEL org.opencontainers.image.description="Run static-cms with GitHub OAuth provider (optimized for Hugo sites)"
 
 # Environment vars
 ENV LOGLEVEL=info

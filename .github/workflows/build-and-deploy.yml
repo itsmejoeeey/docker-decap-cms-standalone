@@ -20,6 +20,6 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ matrix.platforms }}
+          tags: giantswarm/staticjscms-hugo-standalone:${{ release.tag_name }}
           push: true
-          outputs: type=image,name=staticjscms-standalone
-          tags: giantswarm/staticjscms-standalone:latest,giantswarm/staticjscms-standalone:{{major}}.{{minor}}.{{patch}}
+          outputs: type=image,name=giantswarm/staticjscms-hugo-standalone:${{ release.tag_name }}
