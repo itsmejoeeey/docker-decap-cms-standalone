@@ -1,8 +1,8 @@
 {
-  "name": "netlify-cms",
-  "description": "Netlify CMS.",
+  "name": "staticjscms",
+  "description": "StaticJsCMS",
   "version": "1.0.0",
-  "author": "Joey Miller",
+  "author": "StaticJs CMS Community",
   "private": true,
   "scripts": {
     "start": "node app.js"
