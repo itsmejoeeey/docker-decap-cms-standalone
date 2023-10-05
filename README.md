@@ -1,6 +1,6 @@
-# static-cms-standalone
+# staticjscms-hugo-standalone
 
-> This is a fork of https://github.com/itsmejoeeey/docker-decap-cms-standalone which uses the Static CMS fork of Decap CMS.
+> This is a fork of https://github.com/itsmejoeeey/docker-decap-cms-standalone which uses the Static CMS fork of Decap CMS, with settings and layout optimized for a Hugo documentation site.
 
 <br />
 
