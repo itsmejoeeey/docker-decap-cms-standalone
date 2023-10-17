@@ -6,7 +6,9 @@ const port = 8080
 const app = express();
 
 // Serve all files in 'public' folder
-app.use(express.static('public'))
+const publicHandler = express.static('public')
+app.use(publicHandler)
+app.use('/admin', publicHandler)
 
 // Serve CMS source files
 app.use('/cms', express.static('./app/dist'))
