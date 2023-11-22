@@ -1,0 +1,17 @@
+version: 2.1
+orbs:
+  architect: giantswarm/architect@4.35.6
+
+workflows:
+  package-and-push-chart-on-tag:
+    jobs:
+      - architect/push-to-registries:
+          context: architect
+          name: push-to-registries
+          push-to-quay: true
+          push-to-docker: false
+          push-to-gsoci: false
+          push-to-aliyun: false
+          filters:
+            tags:
+              only: /^v.*/

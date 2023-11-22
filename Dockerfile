@@ -6,10 +6,6 @@ FROM node:18-alpine AS prebuild
 # Package versions
 ARG STATICJS_CMS_VER=1.2.14
 ARG NETLIFY_CMS_AUTH_HASH=1155d1964d9a1f8d0d916dc0836c127526d24c49
-ARG STATICJS_CMS_CLONE_URL
-ENV STATICJS_CMS_CLONE_URL ${STATICJS_CMS_CLONE_URL}
-ARG STATICJS_CMS_CLONE_TAG
-ENV STATICJS_CMS_CLONE_TAG ${STATICJS_CMS_CLONE_TAG}
 
 # Install git
 RUN apk add --update git && rm  -rf /tmp/* /var/cache/apk/*
@@ -17,11 +13,12 @@ RUN apk add --update git && rm  -rf /tmp/* /var/cache/apk/*
 # Create builder directory
 WORKDIR /builder
 
-# If STATICJS_CMS_CLONE_URL is set, clone the repo and build the app
+# If static-cms submodule directory exists, checkout the repo and build the app
 # otherwise, download the app from NPM
-RUN if [ -n "${STATICJS_CMS_CLONE_URL}" -a -n "${STATICJS_CMS_CLONE_TAG}" ]; then \
-    git config --global advice.detachedHead false && \
-    git clone --depth 1 --quiet --branch "${STATICJS_CMS_CLONE_TAG}" "${STATICJS_CMS_CLONE_URL}" /builder/staticcms && \
+COPY .git /builder/.git/
+COPY .gitmodules /builder/
+RUN if git -C /builder submodule update --init --recursive static-cms; then \
+    mv /builder/static-cms /builder/staticcms && \
     cd /builder/staticcms && \
     yarn install && \
     yarn run lerna run build --scope @staticcms/app && \

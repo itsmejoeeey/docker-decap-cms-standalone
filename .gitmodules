@@ -1,0 +1,3 @@
+[submodule "static-cms"]
+	path = static-cms
+	url = https://github.com/giantswarm/static-cms.git

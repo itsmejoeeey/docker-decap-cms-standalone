@@ -1,0 +1,17 @@
+# DO NOT EDIT. Generated with:
+#
+#    devctl@6.18.2
+#
+name: gitleaks
+
+on: [pull_request]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: '0'
+    - name: gitleaks-action
+      uses: giantswarm/gitleaks-action@main

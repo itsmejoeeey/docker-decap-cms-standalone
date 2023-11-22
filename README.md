@@ -73,6 +73,12 @@ Environment variables:
 Additionally:
 * `GIT_HOSTNAME`: for enterprise Gitlab installations.
 
+- Make sure to update `base_url` to match the origin(s) you passed initially.
+  i.e.:
+    ```
+        base_url: https://cms.example.com
+    ```
+
 ### Custom Static CMS Build
 
 To run your own static-cms build, either start the image with the following mount options (pointing to `static-cms/app` distributables):
@@ -81,11 +87,4 @@ To run your own static-cms build, either start the image with the following moun
 ${PWD}/../static-cms/packages/app:/app/staticcms/app
 ```
 
-or supply `STATICJS_CMS_CLONE_URL` (URL to clone static-cms from) and `STATICJS_CMS_CLONE_TAG` (tag to check out) build args.
-
-- Make sure to update `base_url` to match the origin(s) you passed initially.
-    i.e.:
-    ```
-        base_url: https://cms.example.com
-    ```
-
+or set the Git submodule at static-cms to the right repository and commit.
