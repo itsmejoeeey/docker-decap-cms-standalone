@@ -4,7 +4,7 @@
 FROM node:18-alpine AS prebuild
 
 # Package versions
-ARG DECAP_CMS_VER=3.0.3
+ARG DECAP_CMS_VER=3.0.9
 ARG NETLIFY_CMS_AUTH_HASH=1155d1964d9a1f8d0d916dc0836c127526d24c49
 
 # Install git
